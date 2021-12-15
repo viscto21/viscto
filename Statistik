@@ -1,0 +1,70 @@
+import java.util.*;
+public class Statistik {
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		System.out.println("Gib einen Wert für n ein: ");
+		int n = scan.nextInt();
+		double[] daten = einlesen(n);
+		double min = min(daten);
+		double max = max(daten);
+		double mittelwert = mittelwert(daten);
+		double streuung = streuung(daten, mittelwert);
+		System.out.println("Anzahl der Daten: " + n );
+		System.out.println("Minimum: " + min);
+		System.out.println("Maximum: " +max);
+		System.out.println("Mittelwert " + mittelwert);
+		System.out.println("Streuung: " + streuung);
+}
+	
+
+
+static double [] einlesen(int n) {
+	Scanner scan = new Scanner(System.in);
+	Locale.setDefault(Locale.US);
+	double[] feld = new double[n]; 
+	for (int i=0; i<n; i++) {
+		System.out.println("Gib die nächste Zahl ein: ");
+		feld [i] = scan.nextDouble();
+	}
+	return feld;
+}
+static double min(double[] feld) {
+	double minimum = feld [0];
+	for(int i=1; i<feld.length; i++) {
+		if(feld[i]<minimum) {
+			minimum=feld[i];
+		}
+		}
+	return minimum;
+}
+static double max(double[] feld) {
+	double maximum = feld [0];
+	for(int i=1; i<feld.length; i++) {
+		if(feld[i]>maximum) {
+			maximum=feld[i];
+		}
+		}
+	return maximum;
+}
+static double mittelwert(double[] feld) {
+	double mittelwert = 0.0;
+	for(int i=0; i<feld.length; i++) {
+		mittelwert += feld[i]/(feld.length);
+	}
+		return mittelwert;
+	
+}
+static double streuung(double[] feld, double mittelwert) {
+	double streuung = 0.0;
+	for(int i=0; i<feld.length; i++) {
+		streuung+=((feld[i]-mittelwert)*(feld[i]-mittelwert))/(feld.length-1);
+	}
+	return Math.sqrt(streuung);
+		
+}
+
+			
+		
+}
+
+
