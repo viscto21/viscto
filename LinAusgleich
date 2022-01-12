@@ -1,0 +1,151 @@
+import java.util.Scanner;
+import java.util.*;
+
+public class LinAusgleich {
+	
+
+	public static void main(String[] args) {
+		Locale.setDefault(Locale.US);
+		System.out.println("Vektoren einlesen");
+		double [] x = vektorEinlesen();
+		double [] y = vektorEinlesen();
+		//double [] [] A = matrixA(x); egal
+		double [] [] A = new double [x.length] [2];
+		for (int i = 0; i<x.length; i++)
+			A[i] = new double [] {1.0, x[i]};   					
+		double [] [] AT = matrixTransposition(A);
+		double [] [] ATA = matrixProdukt(A, AT);
+		double [] [] ATAI = matrixInversion(ATA);
+		double [] ATy = matrixVektorProdukt(AT, y);
+		double [] s = matrixVektorProdukt(ATAI, ATy);
+			
+		vektorAusgeben(s);
+					
+					
+
+	}
+	static double [] vektorEinlesen () {
+		Scanner scan = new Scanner(System.in);
+		
+		System.out.println("Anzahl der Einträge N des Vektors: ");
+		int N = scan.nextInt();
+		
+		double [] v = new double [N];
+		
+		for (int i=0; i<N; i++) {
+		System.out.println("Eintrag des Vektors: ");
+			v[i]= scan.nextDouble();
+		}
+		return v;
+		
+	}
+	/*static void vektorAusgeben (double [] x) {
+		String ret= "";
+		for (int i=0; i<x.length; i++)
+			ret+=x[i];
+			ret+=" "; 
+		System.out.println("s= " +ret);
+	}*/
+	static void vektorAusgeben (double [] x) {
+		//double [] s = new double [x.length];
+		for (int i=0; i<x.length; i++) {
+			
+		System.out.println("s= " +x[i]);
+	}}
+
+	static double [] [] matrixProdukt (double [] [] A, double [] [] AT) { 
+		
+		for (int k = 0; k<A.length; k++) 
+		if (A[k].length == AT.length) {
+		
+		}
+		else {
+			System.out.println("falsche Zeilen- oder Spaltenanzahl");
+			return new double [2] [2];
+		}
+		double [] [] mp = new double [AT.length] [A[0].length];
+		double mprodukt = 0.0;
+		for (int i = 0; i<AT.length; i++) {
+				for (int j = 0; j<A[0].length; j++) {
+		 
+			mprodukt += (A [j] [i]) * (AT [i] [j]);
+			mp [i] [j] = mprodukt;
+				}}
+		return mp;	
+	
+	}
+	
+	static double [] matrixVektorProdukt (double [] [] AT, double [] y) {
+		
+		for (int k = 0; k<AT.length; k++)
+		if (y.length == AT[k].length) { 
+		}
+		else {
+			return new double [AT.length];
+		}
+		double [] ret = new double [AT.length];
+		double produkt = 0.0;
+		for (int i = 0; i<AT.length; i++) {
+				for (int j = 0; j<AT[0].length; j++) {
+		
+			
+					produkt += AT [i] [j] * y [j];
+				}
+					 ret[i] = produkt;
+		
+		}
+		return ret;
+}
+	static double [] [] matrixTransposition (double [] [] A){
+		
+		double [] [] AT = new double [A[0].length] [A.length];
+		for (int i = 0; i<A.length; i++) {
+			for (int j = 0; j<A[0].length; j++) {
+		AT [j] [i] = A [i] [j];
+			}}
+		return AT;
+			}
+	static double [] [] matrixInversion (double [] [] ATA){
+		
+		
+		/*if (ATA.length == 2 && ATA[0].length ==2 && ATA[1].length == 2 && det != 0) {
+		
+		}	
+			
+			else {
+				System.out.println("Fehler");
+			double [] [] nullmatrix = {{0.0, 0.0}, {0.0, 0.0}};
+			return nullmatrix;
+			}*/
+		if( (ATA.length==2 && ATA[0].length==2 && ATA[1].length==2) != true){
+            System.out.println("Die Matrix ist keine 2x2 matrix");
+            return new double[2][2];
+        }
+        double det = 0.0;
+		det += (((Math.abs(ATA[0][0]*ATA[1][1])))-(Math.abs(ATA[0][1]*ATA[1][0])));
+        if(det==0){
+            System.out.println("Die Determinante ist 0, keine Inverse möglich");
+            return new double[2][2];
+        }
+		
+		double [] [] ATAI = new double [ATA.length] [ATA[0].length];
+				ATAI [0] [0] = (1.0/det)*ATA[1][1];
+				ATAI [0] [1] = (1.0/det)*ATA[0][1]*(-1.0);
+				ATAI [1] [0] = (1.0/det)*ATA[1][0]*(-1.0);
+				ATAI [1] [1] = (1.0/det)*ATA[0][0];
+			
+		return ATAI;
+	}
+	
+	/*static double [] [] matrixA (double [] x) {
+		double [] [] A = new double [x.length] [2];
+		for (int i = 0; i<x.length; i++)
+			for (int j = 0; j<1; j++)
+				A [i] [j] = 1;
+		for (int i = 0; i<x.length; i++)
+			for (int j = 0; j<2; j++)
+				A [i] [j] = x[i];
+	return A;
+	}*/
+	
+	}
