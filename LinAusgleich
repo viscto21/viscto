@@ -14,7 +14,7 @@ public class LinAusgleich {
 		for (int i = 0; i<x.length; i++)
 			A[i] = new double [] {1.0, x[i]};   					
 		double [] [] AT = matrixTransposition(A);
-		double [] [] ATA = matrixProdukt(A, AT);
+		double [] [] ATA = matrixProdukt(AT, A);
 		double [] [] ATAI = matrixInversion(ATA);
 		double [] ATy = matrixVektorProdukt(AT, y);
 		double [] s = matrixVektorProdukt(ATAI, ATy);
@@ -53,22 +53,22 @@ public class LinAusgleich {
 		System.out.println("s= " +x[i]);
 	}}
 
-	static double [] [] matrixProdukt (double [] [] A, double [] [] AT) { 
+	static double [] [] matrixProdukt (double [] [] AT, double [] [] A) { 
 		
-		for (int k = 0; k<A.length; k++) 
-		if (A[k].length == AT.length) {
+		for (int k = 0; k<AT.length; k++) 
+		if (AT[k].length == A.length) {
 		
 		}
 		else {
 			System.out.println("falsche Zeilen- oder Spaltenanzahl");
 			return new double [2] [2];
 		}
-		double [] [] mp = new double [AT.length] [A[0].length];
+		var mp = new double [AT.length] [A[0].length];
 		double mprodukt = 0.0;
 		for (int i = 0; i<AT.length; i++) {
 				for (int j = 0; j<A[0].length; j++) {
-		 
-			mprodukt += (A [j] [i]) * (AT [i] [j]);
+					for (int k = 0; k<AT[i].length; k++)
+			mprodukt += (AT [i] [k]) * (A [k] [j]);
 			mp [i] [j] = mprodukt;
 				}}
 		return mp;	
