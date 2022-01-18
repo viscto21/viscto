@@ -1,0 +1,31 @@
+public class Geldanlage {
+	int tA, tE;
+	double B, z;
+	
+	public Geldanlage(int tA, int tE, double B, double z) {
+		this.tA = tA;
+		this.tE = tE;
+		this.B = B;
+		this.z = z/100;
+	}
+	
+	
+	public double auszahlung(int t) {
+		
+		
+			if(t == tA) {
+				return(-1.0)*B;
+			}
+			else if (t == tE) {
+				return(Math.pow(1+z, tE-tA)*B);
+			}
+			else {
+				return(0);
+			}
+	
+		
+		
+	}
+	
+	
+}
