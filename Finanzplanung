@@ -1,0 +1,22 @@
+public class Finanzplanung {
+
+	public static void main(String[] args) {
+		Geldanlage [] portfolio = new Geldanlage [3];
+		Geldanlage Objekt1 = new Geldanlage(2, 5, 100, 3.0);
+		Geldanlage Objekt2 = new Geldanlage(4, 8, 200, 2.5);
+		Geldanlage Objekt3 = new Geldanlage(6, 9, 150, 1.7);
+		portfolio [0] = Objekt1;
+		portfolio [1] = Objekt2;
+		portfolio [2] = Objekt3;
+		
+		for (int t=1; t<11; t++) {
+			double aus=0.0;
+			for (int i = 0; i<portfolio.length; i++) {
+				aus+=portfolio[i].auszahlung(t);
+				
+			}
+			System.out.println(aus);
+		}
+				}
+
+}
