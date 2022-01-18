@@ -11,18 +11,18 @@ public class Geldanlage {
 	
 	
 	public double auszahlung(int t) {
-		
+	double at=0.0;	
 		
 			if(t == tA) {
-				return(-1.0)*B;
+				at+=(-1.0)*B;
 			}
 			else if (t == tE) {
-				return(Math.pow(1+z, tE-tA)*B);
+				at+=(Math.pow(1+z, tE-tA)*B);
 			}
 			else {
-				return(0);
+				at+=0;
 			}
-	
+	return at;
 		
 		
 	}
